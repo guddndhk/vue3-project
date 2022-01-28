@@ -1,25 +1,8 @@
 <template>
   <div class="container">
     <h2>To-Do List</h2>
-    <form @submit.prevent="onSubmit">
-      <div class="d-flex">
-        <div class="flex-grow-1 mr-2">
-          <input
-            class="form-control"
-            type="text"
-            v-model="todo"
-            placeholder="Type new to-do"
-          />
-        </div>
-        <div>
-          <button class="btn btn-primary" type="submit">Add</button>
-        </div>
-      </div>
+    <todo-simple-form @add-todo="addTodo" />
 
-      <div v-show="hasError" style="color: red">
-        This field cannot be empty
-        </div>
-    </form>
     <div v-if="!todos.length">
       추가된 todo가 없습니다.
     </div>
@@ -54,29 +37,26 @@
 
 <script>
 import { ref } from "vue";
+import TodoSimpleForm from './components/TodoSimpleForm.vue';
+
 
 export default {
+  components: {
+    TodoSimpleForm
+  },
   setup() {
-    const todo = ref("");
+    
     const todos = ref([]);
-    const hasError = ref(false);
+    
     const todoStyle = {
       textDecoration: "line-through",
       color: "gray",
     };
 
-    const onSubmit = () => {
-      if (todo.value == "") {
-        hasError.value = true;
-      } else {
-        todos.value.push({
-          id: Date.now(),
-          subject: todo.value,
-          completed: false,
-        });
-        hasError.value = false;
-        todo.value = "";
-      }
+    const addTodo = (todo) => {
+      console.log(todo)
+      todos.value.push(todo);
+    
     };
 
     const deleteTodo = (index) => {
@@ -84,10 +64,8 @@ export default {
     };
 
     return {
-      todo,
-      onSubmit,
       todos,
-      hasError,
+      addTodo,
       todoStyle,
       deleteTodo,
     };
