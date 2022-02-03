@@ -6,7 +6,11 @@
     <div v-if="!todos.length">
       추가된 todo가 없습니다.
     </div>
-    <todo-list :todos="todos" @toggle-todo="toggleTodo" />
+    <todo-list 
+    :todos="todos" 
+    @toggle-todo="toggleTodo"
+    @delete-todo="deleteTodo"
+     />
   </div>
 </template>
 
