@@ -1,13 +1,14 @@
 {
-    "todos": [
-        {
-            "id":1,
-            "content": "hi"
-        },
-        {
-            "id":2,
-            "content": "hey"
-        }
-    ]
-    
+  "todos": [
+    {
+      "subject": "asdf",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "subject": "dfsdfsdf",
+      "completed": false,
+      "id": 2
+    }
+  ]
 }
