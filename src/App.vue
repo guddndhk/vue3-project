@@ -84,8 +84,17 @@ export default {
       console.log(todos.value[index]);
     };
 
-    const deleteTodo = (index) => {
-      todos.value.splice(index, 1);
+    const deleteTodo = async (index) => {
+      error.value = '';
+      const id = todos.value[index].id;
+      try {
+        await axios.delete('http://localhost:3000/todos/' + id);
+      
+        todos.value.splice(index, 1);
+      } catch (err) {
+        console.log(err)
+        error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
+      }
     };
     
     const searchText = ref('');
