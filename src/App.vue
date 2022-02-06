@@ -37,6 +37,18 @@ export default {
     const todos = ref([]);
     const error = ref('');
 
+    const getTodos = async () => {
+      try{
+        const res = await axios.get('http://localhost:3000/todos')
+        todos.value = res.data;
+      } catch (err) {
+        console.log(err);
+        error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
+      }
+    };
+
+    getTodos();
+
     const todoStyle = {
       textDecoration: "line-through",
       color: "gray",
@@ -95,6 +107,7 @@ export default {
       searchText,
       filteredTodos,
       error,
+      
     };
   },
 };
