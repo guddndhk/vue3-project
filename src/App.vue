@@ -6,6 +6,7 @@
         type="text"
         v-model="searchText"
         placeholder="Search"
+        @keyup.enter="searchTodo"
      >
      <hr />
     <todo-simple-form @add-todo="addTodo" />
@@ -139,10 +140,18 @@ export default {
         error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
       }
     };
-    
+
+    let timeout = null;
+    const searchTodo = () => {
+      clearTimeout(timeout);
+      getTodos(1);
+    };
 
     watch(searchText, () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
         getTodos(1);
+      }, 2000)
     });
     // const filteredTodos = computed(() => {
     //   if(searchText.value){
@@ -165,6 +174,7 @@ export default {
       numberOfPages,
       currentPage,
       getTodos,
+      searchTodo,
     };
   },
 };
