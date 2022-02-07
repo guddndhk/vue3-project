@@ -69,7 +69,7 @@ export default {
       currentPage.value = page;
       try{
         const res = await axios.get(
-          `http://localhost:3000/todos?subject_like=${searchText.value}&_page=${page}&_limit=${limit}`
+          `http://localhost:3000/todos?_sort=id&_order=desc&subject_like=${searchText.value}&_page=${page}&_limit=${limit}`
         );
         numberOfTodos.value = res.headers['x-total-count'];
         todos.value = res.data;
@@ -90,18 +90,19 @@ export default {
       // 데이터베이스에 투두를 저장
       error.value = '';
       try{
-      const res = await axios.post('http://localhost:3000/todos', {
+      await axios.post('http://localhost:3000/todos', {
         subject: todo.subject,
         completed: todo.completed,
       //요청이 끝나고 오기전에 그다음으로 넘어가기에 프로미스가 리턴이 왔을때 then 키워드를 사용하여 요청이 끝났을때 응답이 왔을때 실행이 되게함
       });
-      todos.value.push(res.data);
+      getTodos(1);
+      
       } catch (err) {
         console.log(err);
         error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
       }
       //.then(res => {
-        // 이부분을 밖에 두게되면 axios.post 작업이 끝났는지 아닌지 알수도 없을떄 추가가 되기때문에.. (비동기) ajax 와 비슷하다.혹은 try catch
+        // 이부분을 밖에 두게되면 axios.post 작업이 끝났는지 아닌지 알수도 없을떄 추가가 되기때문에.. 
         //console.log(res)
         //todos.value.push(res.data);
       //}).catch(err => {
@@ -131,8 +132,8 @@ export default {
       const id = todos.value[index].id;
       try {
         await axios.delete('http://localhost:3000/todos/' + id);
-      
-        todos.value.splice(index, 1);
+        getTodos(1);
+
       } catch (err) {
         console.log(err)
         error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
