@@ -113,15 +113,16 @@ export default {
       //});
     };
 
-    const toggleTodo = async (index) => {
+    const toggleTodo = async (index, cheked) => {
+      console.log(cheked)
       error.value = '';
       const id = todos.value[index].id;
       try {
         await axios.patch('http://localhost:3000/todos/' + id, {
-          completed: !todos.value[index].completed
+          completed: cheked
         });
 
-        todos.value[index].completed = !todos.value[index].completed;
+        todos.value[index].completed = cheked
       } catch (err) {
         console.log(err);
         error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
@@ -182,8 +183,5 @@ export default {
 </script>
 
 <style>
-.todo {
-  color: gray;
-  text-decoration: line-through;
-}
+
 </style>
