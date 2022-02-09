@@ -35,7 +35,11 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">
+    <button
+        type="submit"
+        class="btn btn-primary"
+        :disabled="!todoUpdated"
+    >
       Save
     </button>
     <button
@@ -50,13 +54,15 @@
 <script>
 import {useRoute, useRouter} from 'vue-router';
 import axios from "axios";
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import _ from 'lodash';
 
 export default {
   setup() {
     const route = useRoute();
     const router = useRouter();
     const todo = ref(null);
+    const originalTodo = ref(null);
     const loding = ref(true);
     const todoId = route.params.id;
 
@@ -64,9 +70,15 @@ export default {
 
       const res = await axios.get(`http://localhost:3000/todos/${todoId}`);
 
-      todo.value = res.data
+      todo.value = {...res.data};
+      originalTodo.value = {...res.data};
+
       loding.value = false;
     };
+
+    const todoUpdated = computed(() => {
+      return !_.isEqual(todo.value, originalTodo.value)
+    });
 
     const toggleTodoStatus = () => {
       todo.value.completed = !todo.value.completed;
@@ -79,11 +91,12 @@ export default {
     };
 
     const onSave = async () => {
-    const res =  await axios.put('http://localhost:3000/todos/'+todoId,{
+      const res = await axios.put('http://localhost:3000/todos/' + todoId, {
         subject: todo.value.subject,
         completed: todo.value.completed
       });
-      console.log(res)
+
+      originalTodo.value = {...res.data};
     };
 
     getTodo();
@@ -94,6 +107,7 @@ export default {
       toggleTodoStatus,
       moveToTodoListPage,
       onSave,
+      todoUpdated,
     }
   }
 }
