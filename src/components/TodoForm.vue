@@ -1,7 +1,6 @@
 <template>
-
-  <div v-if="loding">
-    Loding...
+  <div v-if="loading">
+    Loading...
   </div>
   <form
       v-else
@@ -28,7 +27,7 @@
                 :class="todo.completed ? 'btn-success' : 'btn-danger'"
                 @click="toggleTodoStatus"
             >
-              {{ Incomplete ? 'Completed' : 'Incompleted' }}
+              {{ todo.completed ? 'Completed' : 'Incomplete' }}
             </button>
           </div>
         </div>
@@ -46,7 +45,7 @@
         class="btn btn-primary"
         :disabled="!todoUpdated"
     >
-      Save
+      {{ editing ? 'Update' : 'Create' }}
     </button>
     <button
         class="btn btn-outline-dark ml-2"
@@ -89,14 +88,12 @@ export default {
       body: ''
     });
     const originalTodo = ref(null);
-    const loding = ref(false);
-    const todoId = route.params.id;
-
+    const loading = ref(false);
     const {
       toastMessage,
       toastAlertType,
       showToast,
-      triggerToast,
+      triggerToast
     } = useToast();
 
     //toast
@@ -120,18 +117,21 @@ export default {
     //   clearTimeout(timeOut.value);
     // });
 
-    const getTodo = async () => {
-      loding.value = true;
-      try {
+    const todoId = route.params.id;
 
-        const res = await axios.get(`http://localhost:3000/todos/${todoId}`);
+    const getTodo = async () => {
+      loading.value = true;
+      try {
+        const res = await axios.get(`
+        http://localhost:3000/todos/${todoId}
+        `);
 
         todo.value = {...res.data};
         originalTodo.value = {...res.data};
 
-        loding.value = false;
+        loading.value = false;
       } catch (error) {
-        loding.value = false;
+        loading.value = false;
         console.log(error);
         triggerToast('Something went wrong', 'danger');
       }
@@ -151,29 +151,41 @@ export default {
       })
     };
 
+    if (props.editing) {
+      getTodo();
+    }
+
     const onSave = async () => {
       try {
-        const res = await axios.put('http://localhost:3000/todos/' + todoId, {
+        let res;
+        const data = {
           subject: todo.value.subject,
-          completed: todo.value.completed
-        });
-
-        originalTodo.value = {...res.data};
-        triggerToast('Successfully saved!');
+          completed: todo.value.completed,
+          body: todo.value.body,
+        }
+        if (props.editing) {
+          res = await axios.put('http://localhost:3000/todos/' + todoId, {
+            data
+          });
+          originalTodo.value = {...res.data};
+        } else {
+           res = await axios.post(`
+           http://localhost:3000/todos
+           `, data);
+           todo.value.subject ='';
+           todo.value.body = '';
+        }
+        const message = 'Successfully '+ (props.editing? 'Updated!' :'Created!');
+        triggerToast(message);
       } catch (error) {
         console.log(error);
         triggerToast('Something went wrong', 'danger');
       }
     };
 
-    if (props.editing) {
-      getTodo();
-    }
-    getTodo();
-
     return {
       todo,
-      loding,
+      loading,
       toggleTodoStatus,
       moveToTodoListPage,
       onSave,

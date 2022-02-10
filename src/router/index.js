@@ -1,8 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router";
 import Home from '../pages/index.vue';
 import Todos from '../pages/todos/index.vue';
-import Todo from '@/pages/todos/_id.vue';
-import TodoCreate from '@/pages/todos/create/index.vue';
+import Todo from '../pages/todos/_id.vue';
+import TodoCreate from '../pages/todos/create/index.vue';
 
 //옵션
 const router = createRouter({

@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import TodoForm from "@/components/TodoForm";
+import TodoForm from "@/components/TodoForm.vue";
 
 export default {
   components: {

@@ -133,7 +133,7 @@ export default {
           completed: todo.completed,
           //요청이 끝나고 오기전에 그다음으로 넘어가기에 프로미스가 리턴이 왔을때 then 키워드를 사용하여 요청이 끝났을때 응답이 왔을때 실행이 되게함
         });
-        getTodos(1);
+        await getTodos(1);
 
       } catch (err) {
         console.log(err);
@@ -173,7 +173,7 @@ export default {
       const id = todos.value[index].id;
       try {
         await axios.delete('http://localhost:3000/todos/' + id);
-        getTodos(1);
+        await getTodos(1);
 
       } catch (err) {
         console.log(err)
