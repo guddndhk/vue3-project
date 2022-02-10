@@ -1,10 +1,15 @@
 <template>
-  CreatePage
+  <h1>CreatePage</h1>
+  <TodoForm />
 </template>
 
 <script>
-export default {
+import TodoForm from "@/components/TodoForm";
 
+export default {
+  components:{
+    TodoForm
+  }
 }
 </script>
 
