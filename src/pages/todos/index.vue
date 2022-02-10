@@ -42,6 +42,10 @@
       </ul>
     </nav>
   </div>
+  <Toast
+      v-if="showToast"
+      :message="toastMessage"
+      :type="toastAlertType"/>
 </template>
 
 <script>
@@ -49,11 +53,15 @@ import {ref, computed, watch} from "vue";
 import TodoSimpleForm from '@/components/TodoSimpleForm.vue';
 import TodoList from '@/components/TodoList.vue';
 import axios from 'axios';
+import Toast from "@/components/Toast.vue";
+import {useToast} from "@/composables/toast";
+
 
 export default {
   components: {
     TodoSimpleForm,
     TodoList,
+    Toast,
   },
   setup() {
     const todos = ref([]);
@@ -66,6 +74,29 @@ export default {
       return Math.ceil(numberOfTodos.value / limit);
     });
 
+    const {
+      toastMessage,
+      toastAlertType,
+      showToast,
+      triggerToast,
+    } = useToast();
+    //toast
+    // const toastMessage = ref('');
+    // const toastAlertType = ref('');
+    // const showToast = ref(false);
+    // const toastTimeOut = ref(null);
+    //
+    // const triggerToast = (message, type = 'success') => {
+    //   toastMessage.value = message;
+    //   toastAlertType.value = type;
+    //   showToast.value = true;
+    //   toastTimeOut.value = setTimeout(() => {
+    //     toastMessage.value = '';
+    //     toastAlertType.value = '';
+    //     showToast.value = false;
+    //   }, 3000);
+    // }
+
     const getTodos = async (page = currentPage.value) => {
       currentPage.value = page;
       try {
@@ -77,6 +108,7 @@ export default {
       } catch (err) {
         console.log(err);
         error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
+        triggerToast('Something went wrong', 'danger');
       }
     };
 
@@ -101,6 +133,7 @@ export default {
       } catch (err) {
         console.log(err);
         error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
+        triggerToast('Something went wrong', 'danger');
       }
       //.then(res => {
       // 이부분을 밖에 두게되면 axios.post 작업이 끝났는지 아닌지 알수도 없을떄 추가가 되기때문에..
@@ -125,6 +158,7 @@ export default {
       } catch (err) {
         console.log(err);
         error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
+        triggerToast('Something went wrong', 'danger');
       }
 
     };
@@ -139,6 +173,7 @@ export default {
       } catch (err) {
         console.log(err)
         error.value = '컴퓨터는 멍청하다 물 좀 줘 라고했니? 물을 어떻게 어디서 누구에게 어떻게 가져다줘 라고해야지..찾아봐';
+        triggerToast('Something went wrong', 'danger');
       }
     };
 
@@ -176,6 +211,10 @@ export default {
       currentPage,
       getTodos,
       searchTodo,
+      toastMessage,
+      toastAlertType,
+      showToast,
+      triggerToast,
     };
   },
 };
