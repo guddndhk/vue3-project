@@ -15,6 +15,12 @@
               type="text"
               class="form-control"
           >
+          <div
+              v-if="subjectError"
+              style="color: red"
+          >
+            {{ subjectError }}
+          </div>
         </div>
       </div>
       <div v-if="editing" class="col-6">
@@ -87,6 +93,7 @@ export default {
       completed: false,
       body: ''
     });
+    const subjectError = ref('');
     const originalTodo = ref(null);
     const loading = ref(false);
     const {
@@ -156,6 +163,11 @@ export default {
     }
 
     const onSave = async () => {
+      subjectError.value = '';
+      if (!todo.value.subject) {
+        subjectError.value = 'Subject is required';
+        return;
+      }
       try {
         let res;
         const data = {
@@ -164,18 +176,17 @@ export default {
           body: todo.value.body,
         }
         if (props.editing) {
-          res = await axios.put('http://localhost:3000/todos/' + todoId, {
-            data
-          });
+          res = await axios.put(`http://localhost:3000/todos/${todoId}
+          `,data);
           originalTodo.value = {...res.data};
         } else {
-           res = await axios.post(`
+          res = await axios.post(`
            http://localhost:3000/todos
            `, data);
-           todo.value.subject ='';
-           todo.value.body = '';
+          todo.value.subject = '';
+          todo.value.body = '';
         }
-        const message = 'Successfully '+ (props.editing? 'Updated!' :'Created!');
+        const message = 'Successfully ' + (props.editing ? 'Updated!' : 'Created!');
         triggerToast(message);
       } catch (error) {
         console.log(error);
@@ -193,6 +204,7 @@ export default {
       showToast,
       toastMessage,
       toastAlertType,
+      subjectError,
     }
   }
 }
