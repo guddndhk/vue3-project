@@ -31,16 +31,18 @@
       </div>
     </div>
   </div>
-  <Modal
-      v-if="showModal"
-      @close="closeModal"
-      @delete="deleteTodo"
-  />
+  <Teleport to="#modal">
+    <Modal
+        v-if="showModal"
+        @close="closeModal"
+        @delete="deleteTodo"
+    />
+  </Teleport>
 </template>
 
 <script>
 import {useRouter} from 'vue-router';
-import Modal from "@/components/Modal";
+import Modal from "@/components/DeleteModal";
 import {ref} from "vue";
 
 export default {

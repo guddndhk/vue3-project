@@ -65,12 +65,6 @@
       "completed": false,
       "body": "1234",
       "id": 16
-    },
-    {
-      "subject": "make one",
-      "completed": false,
-      "body": "1",
-      "id": 17
     }
   ]
 }
