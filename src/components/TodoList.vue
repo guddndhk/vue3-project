@@ -9,17 +9,17 @@
         style="cursor: pointer"
         @click="moveToPage(todo.id)"
     >
-      <div class="form-check flex-grow-1">
+      <div class="flex-grow-1">
         <input
-            class="form-check-input"
+            class="todo-margin"
             type="checkbox"
             :checked="todo.completed"
             @change="toggleTodo(index, $event)"
             @click.stop
         />
-        <label class="form-check-label" :class="{ todo: todo.completed }">
+        <span :class="{ todo: todo.completed }">
           {{ todo.subject }}
-        </label>
+        </span>
       </div>
       <div>
         <button
@@ -75,6 +75,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+/*
+class:"ml-2" 식이 적용되지 않아 todo-margin 을 만들어서 사용.
+ */
+.todo-margin{
+  margin-left: 2px;
+  margin-right: 2px;
+}
 </style>
