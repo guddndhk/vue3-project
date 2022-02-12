@@ -77,7 +77,7 @@
 <script>
 import {useRoute, useRouter} from 'vue-router';
 import axios from "axios";
-import {computed, ref, onUpdated} from "vue";
+import {computed, ref} from "vue";
 import _ from 'lodash';
 import Toast from "@/components/Toast.vue";
 import {useToast} from "@/composables/toast";
@@ -101,10 +101,6 @@ export default {
       subject: '',
       completed: false,
       body: ''
-    });
-
-    onUpdated(() => {
-      console.log(todo.value.subject)
     });
 
     const subjectError = ref('');
