@@ -1,12 +1,12 @@
 <template>
   <modal>
-    <template v-slot:title>
+    <template #title>
       Delete Todo
     </template>
-    <template v-slot:body>
+    <template #body>
       are you sure to delete this todo?
     </template>
-    <template v-slot:footer>
+    <template #footer>
       <button
           type="button"
           class="btn btn-secondary"
