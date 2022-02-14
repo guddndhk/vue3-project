@@ -1,5 +1,5 @@
 import {createStore} from "vuex";
-import modules from './mudules';
+import modules from './modules';
 
 export default createStore({
 

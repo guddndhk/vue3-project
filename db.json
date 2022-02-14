@@ -1,27 +1,12 @@
 {
   "todos": [
     {
-      "subject": "dfsdfsdf",
-      "completed": false,
-      "id": 2
-    },
-    {
       "data": {
         "subject": "gd",
         "completed": false,
         "body": "dfd"
       },
       "id": 3
-    },
-    {
-      "subject": "hqw",
-      "completed": false,
-      "id": 5
-    },
-    {
-      "subject": "4525sdgsaghsh",
-      "completed": false,
-      "id": 9
     },
     {
       "data": {
@@ -56,82 +41,16 @@
       "id": 14
     },
     {
-      "subject": "hey yyy",
+      "subject": "vue3 Todo 프로젝트 완료.",
       "completed": false,
-      "body": "1234",
+      "body": "기본이지만 이래저래 결국은 끝났다.. \n백엔드 개발자도 프론트를 조금은 다룰줄 알아야하니..",
+      "id": 15
+    },
+    {
+      "subject": "내일부터 파이썬 & 프로젝트 시작.",
+      "completed": false,
+      "body": "파이썬 학습 및 프로젝트 시작 이번에는 도메인 구입에 배포까지!",
       "id": 16
-    },
-    {
-      "subject": "make2",
-      "completed": false,
-      "body": "113",
-      "id": 17
-    },
-    {
-      "subject": "hey",
-      "completed": false,
-      "body": "axios",
-      "id": 18
-    },
-    {
-      "subject": "test01",
-      "completed": false,
-      "body": "01",
-      "id": 19
-    },
-    {
-      "subject": "heytest",
-      "completed": false,
-      "body": "01",
-      "id": 20
-    },
-    {
-      "subject": "333",
-      "completed": false,
-      "body": "333",
-      "id": 21
-    },
-    {
-      "subject": "222",
-      "completed": false,
-      "body": "222",
-      "id": 22
-    },
-    {
-      "subject": "666",
-      "completed": false,
-      "body": "666",
-      "id": 23
-    },
-    {
-      "subject": "222",
-      "completed": false,
-      "body": "222",
-      "id": 24
-    },
-    {
-      "subject": "777",
-      "completed": false,
-      "body": "777",
-      "id": 25
-    },
-    {
-      "subject": "11",
-      "completed": false,
-      "body": "111",
-      "id": 26
-    },
-    {
-      "subject": "mo",
-      "completed": false,
-      "body": "mo",
-      "id": 27
-    },
-    {
-      "subject": "333",
-      "completed": false,
-      "body": "33",
-      "id": 28
     }
   ]
 }

@@ -19,7 +19,7 @@ export const useToast = () => {
         //     toastAlertType.value = '';
         //     showToast.value = false;
         // }, 3000);
-        store.dispatch('toast/triggerToast', message, type);
+        store.dispatch('toast/triggerToast', {message, type});
     }
 
     // onUnmounted(() => {
